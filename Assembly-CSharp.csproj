@@ -36,12 +36,19 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\ControlPlayer.cs" />
-     <Compile Include="Assets\Scripts\ControlCamera.cs" />
      <Compile Include="Assets\Scripts\ControlEnemy.cs" />
-     <Compile Include="Assets\Scripts\ControlGun.cs" />
-     <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\ITakeDamage.cs" />
+     <Compile Include="Assets\Scripts\CharacterAnimation.cs" />
      <Compile Include="Assets\Scripts\ZombieGenerator.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\ControlPlayer.cs" />
+     <Compile Include="Assets\Scripts\ControlInterface.cs" />
+     <Compile Include="Assets\Scripts\MovementCharacter.cs" />
+     <Compile Include="Assets\Scripts\Status.cs" />
+     <Compile Include="Assets\Scripts\ControlAudio.cs" />
+     <Compile Include="Assets\Scripts\ControlGun.cs" />
+     <Compile Include="Assets\Scripts\ControlCamera.cs" />
      <None Include="Assets\Modelos3D\Personagens\Animacoes\Animacoes.txt" />
      <None Include="Assets\Modelos3D\Personagens\Animacoes\Animacoes_Zumbi.txt" />
     <Reference Include="UnityEngine">
@@ -682,6 +689,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
         <HintPath>E:\ARQUIVOS\zombie_game\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+        <HintPath>E:\ARQUIVOS\zombie_game\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
         <HintPath>E:\ARQUIVOS\zombie_game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>

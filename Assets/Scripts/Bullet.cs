@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {   
     public float Speed = 30;
     private Rigidbody rigidbodyBullet;
+    public AudioClip DestroyZombie;
 
     private void Start() {
         rigidbodyBullet = GetComponent<Rigidbody>();
@@ -20,8 +21,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collisionObject) {
         if(collisionObject.tag == "Enemy"){
-            Destroy(collisionObject.gameObject);
-            
+            collisionObject.GetComponent<ControlEnemy>().TakeDamage(1);
         }
         Destroy(gameObject);
     }
