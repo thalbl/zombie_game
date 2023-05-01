@@ -15,8 +15,17 @@ public class MovementCharacter : MonoBehaviour
    }
 
    public void Rotation(Vector3 direction){
-    Quaternion newRotation = Quaternion.LookRotation(direction);
+        var speed = 20;
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, speed * Time.deltaTime, 0.0f);
+        Quaternion newRotation = Quaternion.LookRotation(direction);
         myRigidbody.MoveRotation(newRotation);
+   }
+
+   public void Dies(){
+    myRigidbody.constraints = RigidbodyConstraints.None;
+    myRigidbody.velocity = Vector3.zero;
+    myRigidbody.isKinematic = false; 
+    GetComponent<Collider>().enabled = false;
    }
 
 }

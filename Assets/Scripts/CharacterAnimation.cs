@@ -16,4 +16,8 @@ public class CharacterAnimation : MonoBehaviour
    public void Moving(float movingValue){
     myAnimator.SetFloat("Movement", movingValue);
    }
+
+   public void Dies(){
+    myAnimator.SetTrigger("Dies");
+   }
 }

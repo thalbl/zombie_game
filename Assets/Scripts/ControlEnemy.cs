@@ -14,6 +14,16 @@ public class ControlEnemy : MonoBehaviour, ITakeDamage
     private float walkingCount;
     private float timeToWalk = 4;
 
+    //percentage that a zombie can drop a medkit when dies, in this case it's 10%
+    private float percentageMedKit = 0.25f;
+    public GameObject MedKitPrefab;
+    private ControlInterface scriptControlInterface;
+
+    [HideInInspector]
+    public ZombieGenerator myGenerator;
+
+    public GameObject BloodParticleZombie;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -22,6 +32,7 @@ public class ControlEnemy : MonoBehaviour, ITakeDamage
         zombieMovement = GetComponent<MovementCharacter>();
         RandomZombie();
         zombieStatus = GetComponent<Status>();
+        scriptControlInterface = GameObject.FindObjectOfType(typeof(ControlInterface)) as ControlInterface;
     }
 
 
@@ -67,7 +78,7 @@ public class ControlEnemy : MonoBehaviour, ITakeDamage
         walkingCount -= Time.deltaTime;
         if(walkingCount <= 0){
             randomPosition = RandomPosition();
-            walkingCount += timeToWalk;
+            walkingCount += timeToWalk + Random.Range(-1f, 1f);
         }
         bool isClose = Vector3.Distance(transform.position, randomPosition) <= 0.05;
         if(isClose == false){
@@ -85,7 +96,7 @@ public class ControlEnemy : MonoBehaviour, ITakeDamage
     }
 
     void RandomZombie(){
-        int generateZombieType = Random.Range(1, 28);
+        int generateZombieType = Random.Range(1, transform.childCount);
         transform.GetChild(generateZombieType).gameObject.SetActive(true);
         
     }
@@ -97,9 +108,28 @@ public class ControlEnemy : MonoBehaviour, ITakeDamage
         }
     }
 
+    public void BloodParticle(Vector3 position, Quaternion rotation){
+        Instantiate(BloodParticleZombie ,position, rotation);
+    }
+
     public void Dies()
-    {
-        Destroy(gameObject);
+    {   
+        animatorZombie.Dies();
+        zombieMovement.Dies();
+        Destroy(gameObject, 2);
+        this.enabled = false;
         ControlAudio.instance.PlayOneShot(DestroyZombie);
+        checkMedKitGeneration(percentageMedKit);
+        
+        scriptControlInterface.UpdateKilledZombies();
+        myGenerator.ReduceAliveZombiesAmount();   
+    }
+
+    //when the zombie dies, there is chance that it drops a medkit
+    void checkMedKitGeneration(float chancePercentage){
+        //Random.value returns a value within 0.0 and 1.0, its better for percentages 
+        if(Random.value <= chancePercentage){
+            Instantiate(MedKitPrefab, transform.position, Quaternion.identity);
+        }
     }
 }

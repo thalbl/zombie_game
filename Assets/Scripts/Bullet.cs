@@ -20,8 +20,20 @@ public class Bullet : MonoBehaviour
     /*To make the bullet trigger self destruction or the zombie destruction*/
 
     void OnTriggerEnter(Collider collisionObject) {
-        if(collisionObject.tag == "Enemy"){
-            collisionObject.GetComponent<ControlEnemy>().TakeDamage(1);
+        Quaternion BulletRotation = Quaternion.LookRotation(-transform.forward);
+        switch(collisionObject.tag){
+            case "Enemy":
+            ControlEnemy enemy = collisionObject.GetComponent<ControlEnemy>();
+            enemy.TakeDamage(1);
+            enemy.BloodParticle(transform.position, BulletRotation);
+            
+            break;
+
+            case "Boss":
+            ControlBoss boss = collisionObject.GetComponent<ControlBoss>();
+            boss.TakeDamage(1);
+            boss.BloodParticle(transform.position, BulletRotation);
+            break;
         }
         Destroy(gameObject);
     }

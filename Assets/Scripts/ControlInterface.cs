@@ -12,6 +12,9 @@ public class ControlInterface : MonoBehaviour
     public Text SurviveTime;
     public Text MaxSurvivalTime;
     public float MaxScore;
+    private int zombieKilledScore;
+    public Text ZombiesKilled;
+    public Text newBossSpawn;
 
     void Start()
     {
@@ -54,5 +57,38 @@ public class ControlInterface : MonoBehaviour
 
     public void Restart(){
         SceneManager.LoadScene("game");
+    }
+
+    public void UpdateKilledZombies(){
+        zombieKilledScore++;
+        ZombiesKilled.text = string.Format("x {0}", zombieKilledScore);
+
+    }
+
+    public void ShowNewBoss(){
+        StartCoroutine(hideText(2, newBossSpawn));
+    }
+
+    IEnumerator hideText(float timeToHide, Text textToHide){
+        textToHide.gameObject.SetActive(true);
+        Color textColor = textToHide.color;
+        textColor.a = 1;
+        textToHide.color = textColor;
+        yield return new WaitForSeconds(1);
+        float count = 0;
+        
+        while(textToHide.color.a > 0){
+            
+            count += Time.deltaTime / timeToHide;
+            textColor.a = Mathf.Lerp(1, 0, count);
+            textToHide.color = textColor;
+            if(textToHide.color.a <= 0){
+                textToHide.gameObject.SetActive(false);
+            }
+            yield return null;
+
+        }
+
+        textToHide.gameObject.SetActive(false);
     }
 }

@@ -11,23 +11,39 @@ public class ZombieGenerator : MonoBehaviour
     private float generationDistance = 3;
     private float generationDistanceFromPlayer = 20;
     private GameObject player;
+    private int aliveZombiesLimit = 2;
+    private int currentAliveZombies;
+
+    //variables for increase zombie generation by the time passes
+    private float timeNextDifficult = 20;
+    private float increaseDifficultCount;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        increaseDifficultCount = timeNextDifficult;
+        for(int i = 0; i < aliveZombiesLimit ; i++){
+            StartCoroutine(GenerateNewZombie());
+        }
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(Vector3.Distance(transform.position, player.transform.position) > generationDistanceFromPlayer){
+    {   
+        bool canIGenZombiesByDistance = Vector3.Distance(transform.position, player.transform.position) > generationDistanceFromPlayer;
+        if(canIGenZombiesByDistance == true && currentAliveZombies < aliveZombiesLimit){
             timeCount += Time.deltaTime;
 
             if(timeCount >= zombieGenerateTime){
                 StartCoroutine(GenerateNewZombie());
                 timeCount = 0;
             }  
+        }
+
+        if(Time.timeSinceLevelLoad > increaseDifficultCount){
+            aliveZombiesLimit++;
+            increaseDifficultCount = Time.timeSinceLevelLoad + timeNextDifficult;
         }
     }
 
@@ -42,7 +58,9 @@ public class ZombieGenerator : MonoBehaviour
             //when we use while, theres a chance that unity crashes, to avoid it, we can use yield return null
             yield return null;
         }
-        Instantiate(Zombie, creationPosition, transform.rotation);
+        ControlEnemy zombie = Instantiate(Zombie, creationPosition, transform.rotation).GetComponent<ControlEnemy>();
+        zombie.myGenerator = this;
+        currentAliveZombies++;
     }
 
     void OnDrawGizmos() {
@@ -55,5 +73,9 @@ public class ZombieGenerator : MonoBehaviour
         position += transform.position;
         position.y = 0;
         return position;
+    }
+
+    public void ReduceAliveZombiesAmount(){
+        currentAliveZombies--;
     }
 }

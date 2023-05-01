@@ -281,10 +281,17 @@
 -r:"Library/Bee/artifacts/2000b0aP.dag/Unity.VisualScripting.State.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aP.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Bullet.cs"
+"Assets/Scripts/CharacterAnimation.cs"
+"Assets/Scripts/ControlAudio.cs"
 "Assets/Scripts/ControlCamera.cs"
 "Assets/Scripts/ControlEnemy.cs"
 "Assets/Scripts/ControlGun.cs"
+"Assets/Scripts/ControlInterface.cs"
 "Assets/Scripts/ControlPlayer.cs"
+"Assets/Scripts/ITakeDamage.cs"
+"Assets/Scripts/MovementCharacter.cs"
+"Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/Status.cs"
 "Assets/Scripts/ZombieGenerator.cs"
 -langversion:9.0
 

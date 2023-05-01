@@ -36,19 +36,25 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Billboard.cs" />
      <Compile Include="Assets\Scripts\ControlEnemy.cs" />
      <Compile Include="Assets\Scripts\ITakeDamage.cs" />
      <Compile Include="Assets\Scripts\CharacterAnimation.cs" />
      <Compile Include="Assets\Scripts\ZombieGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\IHealing.cs" />
+     <Compile Include="Assets\Scripts\ControlBoss.cs" />
      <Compile Include="Assets\Scripts\ControlPlayer.cs" />
      <Compile Include="Assets\Scripts\ControlInterface.cs" />
      <Compile Include="Assets\Scripts\MovementCharacter.cs" />
+     <Compile Include="Assets\Scripts\BossGenerator.cs" />
      <Compile Include="Assets\Scripts\Status.cs" />
      <Compile Include="Assets\Scripts\ControlAudio.cs" />
+     <Compile Include="Assets\Scripts\MedKit.cs" />
      <Compile Include="Assets\Scripts\ControlGun.cs" />
      <Compile Include="Assets\Scripts\ControlCamera.cs" />
+     <Compile Include="Assets\Scripts\ControlMenu.cs" />
      <None Include="Assets\Modelos3D\Personagens\Animacoes\Animacoes.txt" />
      <None Include="Assets\Modelos3D\Personagens\Animacoes\Animacoes_Zumbi.txt" />
     <Reference Include="UnityEngine">

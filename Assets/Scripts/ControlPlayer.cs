@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ControlPlayer : MonoBehaviour, ITakeDamage
+public class ControlPlayer : MonoBehaviour, ITakeDamage, IHealing
 {
 
     //create a Vector3 variable to store our eixoX and eixoZ
@@ -77,6 +77,17 @@ public class ControlPlayer : MonoBehaviour, ITakeDamage
 
         public void Dies(){ 
             scriptControlInterface.GameOver();
+        }
+
+        //calls the HealHealth function in IHealing interface
+        public void HealHealth(int howMuchHeal){
+            playerStatus.CurrentHealth += howMuchHeal;
+
+            //condition to not allow that player heals more than 100hp
+            if(playerStatus.CurrentHealth > playerStatus.StarterHealth){
+                playerStatus.CurrentHealth = playerStatus.StarterHealth;
+            }
+            scriptControlInterface.UpdateHealthBar();
         }
         
 }
